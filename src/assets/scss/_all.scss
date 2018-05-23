@@ -1,0 +1,22 @@
+// Importing whole kernel
+// * const values(like z-indexes gradation, grid consts, colors etc)
+// * mixins
+// * reseted some styles
+// * nested classes for effects, grid, etc
+// ----------------------
+@import "./kernel/all";
+
+// Scrollbar styles
+@import "~vue2-scrollbar/dist/style/vue2-scrollbar.css";
+
+// Importing components styles
+@import "_grid";
+@import "_main";
+
+// Bootstrap
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+// Datetime picker
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';

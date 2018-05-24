@@ -1,0 +1,17 @@
+.btn {
+  position: relative;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.2);
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+    box-shadow: 0 3px 4px 1px rgba(0,0,0,.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -3,7 +3,7 @@
         <div class="eg-flex">
             <h5>Show date</h5>
             <date-picker v-model="date" :config="config" class="date__container"></date-picker>
-            <b-button :size="'sm'" :variant="'primary'">Submit</b-button>
+            <b-button :size="'m'" :variant="'primary'">Submit</b-button>
         </div>
         <transition name="ef-opacity" mode="out-in">
             <div class="ef-transition-opacity" v-if="date" :key="date">
@@ -13,13 +13,13 @@
                          :fields="fields"
                 ></b-table>
                 <h4 class="content__title">Drama</h4>
-                <b-table striped hover
+                <b-table hover
                          :items="dramaTickets"
                          :fields="fields"
                 ></b-table>
 
                 <h4 class="content__title">Comedy</h4>
-                <b-table striped hover
+                <b-table hover
                          :items="comedyTickets"
                          :fields="fields"
                 ></b-table>
@@ -58,18 +58,15 @@
           {
             key: 'ticketsAvailable',
             label: 'Tickets available',
-            variant: 'danger',
             sortable: true
           },
           {
             key: 'status',
-            label: 'Status',
-            variant: 'info'
+            label: 'Status'
           },
           {
             key: 'price',
             label: 'Price',
-            variant: 'warning',
             sortable: true
           }
         ],

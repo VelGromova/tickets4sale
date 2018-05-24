@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import datePicker from 'vue-bootstrap-datetimepicker'
+import store from './store'
+
 
 Vue.config.productionTip = false
 
@@ -15,5 +17,6 @@ Vue.use(datePicker)
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

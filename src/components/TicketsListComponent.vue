@@ -1,31 +1,46 @@
 <template>
-    <div class="table__container">
-        <div>
-            <span>Show date</span>
-            <input type="text">
+    <div class="tables__container">
+        <div class="eg-flex">
+            <h5>Show date</h5>
+            <date-picker v-model="date" :config="config" class="date__container"></date-picker>
             <b-button :size="'sm'" :variant="'primary'">Submit</b-button>
-            <date-picker v-model="date" :config="config"></date-picker>
         </div>
-        <h4>Musical</h4>
-        <b-table striped hover :items="musicalTickets" :fields="fields"></b-table>
-        <h4>Drama</h4>
-        <b-table striped hover :items="dramaTickets" :fields="fields"></b-table>
-        <h4>Comedy</h4>
-        <b-table striped hover :items="comedyTickets" :fields="fields"></b-table>
+        <transition name="ef-opacity" mode="out-in">
+            <div class="ef-transition-opacity" v-if="date" :key="date">
+                <h4 class="content__title">Musical</h4>
+                <b-table striped hover
+                         :items="musicalTickets"
+                         :fields="fields"
+                ></b-table>
+                <h4 class="content__title">Drama</h4>
+                <b-table striped hover
+                         :items="dramaTickets"
+                         :fields="fields"
+                ></b-table>
+
+                <h4 class="content__title">Comedy</h4>
+                <b-table striped hover
+                         :items="comedyTickets"
+                         :fields="fields"
+                ></b-table>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
+  import VueScrollbar from 'vue2-scrollbar'
+
   export default {
-    name: 'PerformanceListComponent',
+    name: 'TicketsListComponent',
 
     components: {
-
+      VueScrollbar,
     },
 
     data () {
       return {
-        date: new Date(),
+        date: '',
         config: {
           format: 'YYYY-MM-DD',
           useCurrent: false,
@@ -59,12 +74,12 @@
           }
         ],
         items: [
-          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'dsfsdfdsf', price: 333 },
-          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'dsfsdfdsf', price: 333 },
-          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'dsfsdfdsf', price: 333 },
-          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'dsfsdfdsf', price: 333 },
-          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'dsfsdfdsf', price: 333 },
-          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'dsfsdfdsf', price: 333 },
+          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'open for sale', price: 333 },
+          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'open for sale', price: 333 },
+          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'open for sale', price: 333 },
+          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'open for sale', price: 333 },
+          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'open for sale', price: 333 },
+          { title: 'performance', ticketsLeft: 40, ticketsAvailable: 234, status: 'open for sale', price: 333 },
         ]
       }
     },
@@ -81,6 +96,10 @@
       comedyTickets () {
         return this.items
       }
+    },
+
+    mounted () {
+      this.$store.dispatch('uploadTickets')
     }
   }
 </script>

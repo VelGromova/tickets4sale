@@ -1,0 +1,106 @@
+// Flex grid
+// .eg - like 'element grid'
+// ----------------------------------------------------------
+.eg-flex00 { flex: 0 0 auto !important; }
+.eg-flex10 { flex: 1 0 auto !important; }
+.eg-flex11 { flex: 1 1 auto !important; }
+
+.eg-flex {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+
+.eg-justifyContentCenter {
+  -webkit-box-pack: center !important;
+  -webkit-justify-content: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+}
+
+.eg-flexCenter {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+
+$single-column: percentage(1 / $grid-columns);
+
+@for $number from (0) through $grid-columns {
+  $col: $single-column * $number;
+
+  .eg-col#{$number} {
+    box-sizing: border-box !important;
+    -webkit-box-flex: 0 !important;
+    -ms-flex: 0 0 auto !important;
+    flex: 0 0 auto !important;
+    -ms-flex-preferred-size: $col !important;
+    flex-basis: $col !important;
+    max-width: $col !important;
+  }
+}
+
+// Sizes
+// .es - like 'element size'
+// ----------------------------------------------------------
+.es-fullHeight {
+  height: 100%;
+}
+
+.es-fullWidth {
+  width: 100%;
+}
+
+// Sizes
+// .et - like 'element type'
+// ----------------------------------------------------------
+.et-btn {
+  @include transition($background-color-and-color-transition-function);
+
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.et-input {
+  @include transition($background-color-and-color-transition-function);
+
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.et-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+//Effects
+// .ef - like 'element effect'
+//-----------------------------------------------------------
+.ef-transition-transform {
+  @include transition($transform-transition-function);
+}
+
+.ef-transition-opacity {
+  @include transition($opacity-transition-function);
+}
+
+.ef-opacity {
+  &-enter, &-leave-to {
+    /* NOTE: uses for transition effects(https://vuejs.org/v2/guide/transitions.html)
+     * &-leave-active below version 2.1.8
+     */
+    opacity: 0;
+  }
+}

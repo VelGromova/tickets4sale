@@ -1,0 +1,10 @@
+$default-transition-function: linear;
+$default-transition-duration: 0.2s;
+
+$background-color-and-color-transition-function: $default-transition-duration $default-transition-function background-color, $default-transition-duration $default-transition-function color;
+$background-color-transition-function: $default-transition-duration $default-transition-function background-color;
+$color-transition-function: $default-transition-duration $default-transition-function color;
+$transform-transition-function: $default-transition-duration $default-transition-function transform;
+$border-color-transition-function: $default-transition-duration $default-transition-function border-color;
+$opacity-transition-function: $default-transition-duration $default-transition-function opacity;
+$height-transition-function: $default-transition-duration $default-transition-function height;

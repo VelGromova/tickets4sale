@@ -1,64 +1,57 @@
+/* eslint-disable no-console,no-undef,no-case-declarations */
 import Vuex from 'vuex'
 import Vue from 'vue'
 import * as _ from 'lodash'
 
 Vue.use(Vuex);
 
+const shows = require('./../assets/shows.csv')
+
 export default new Vuex.Store({
-  state: {
-    musicalTickets: [],
-    comedyTickets: [],
-    dramaTickets: []
-  },
+    state: {
+        musical: [],
+        comedy: [],
+        drama: [],
+        soledTickets: {}
+    },
 
-  getters: {
-    tickets (state) {
-      return type => {
-        switch (type) {
-          case 'comedy':
-            let comedyTickets = JSON.parse(window.localStorage.getItem('comedyTickets'))
-            if (comedyTickets) {
-              state.comedyTickets = comedyTickets
+    getters: {
+        tickets(state) {
+            return type => {
+                let tickets = JSON.parse(window.localStorage.getItem(type))
+                if (tickets) {
+                    state[type] = tickets
+                }
+
+                return state[type]
             }
-
-            return state.comedyTickets
-
-          case 'musical':
-            let musicalTickets = JSON.parse(window.localStorage.getItem('musicalTickets'))
-            if (musicalTickets) {
-              state.musicalTickets = musicalTickets
-            }
-
-            return state.musicalTickets
-
-          case 'drama':
-            let dramaTickets = JSON.parse(window.localStorage.getItem('dramaTickets'))
-            if (dramaTickets) {
-              state.dramaTickets = dramaTickets
-            }
-
-            return state.dramaTickets
-
-          default:
-            throw Error('Not found type of ticket')
         }
-      }
-    }
-  },
+    },
 
-  actions: {
-    uploadTickets () {
-      let shows = require('./../assets/shows.csv')
-      let groupedShowsByTypeAndDate = {}
-      _.chain(shows)
-        .groupBy('type')
-        .map((showsByType,index) => groupedShowsByTypeAndDate[index] = _.groupBy(showsByType, 'date'))
-    .value()
-      // _.map(_.groupBy(shows, 'type'), (typedTickets, index) => {
-      //     groupedTicketsByType[index] = _.groupBy(typedTickets, 'date')
-      // })
+    actions: {
+        uploadTickets() {
+            if (
+                !window.localStorage.getItem('comedy') ||
+                !window.localStorage.getItem('drama') ||
+                !window.localStorage.getItem('musical')
+            ) {
+                _.chain(shows)
+                    .groupBy(show => show.type.toLowerCase())
+                    .map((showsByType, index) => {
+                        return {
+                            type: index,
+                            shows: _.groupBy(showsByType, 'date')
+                        }
+                    })
+                    .map(data => window.localStorage.setItem(data.type, JSON.stringify(data.shows)))
+                    .value()
 
-      console.log(groupedShowsByTypeAndDate)
+                _.map(['comedy', 'drama', 'musical'], type => {
+                    if (!window.localStorage.getItem(type)) {
+                        window.localStorage.setItem(type, JSON.stringify({}))
+                    }
+                }).values()
+            }
+        }
     }
-  }
 });

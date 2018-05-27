@@ -29,13 +29,21 @@
 </template>
 
 <script>
+<<<<<<< HEAD
   import { mapGetters } from 'vuex'
   import * as core from './../core'
   import * as _ from 'lodash'
+=======
+import VueScrollbar from 'vue2-scrollbar'
+import { mapGetters } from 'vuex'
+import * as core from './../core'
+import * as _ from 'lodash'
+>>>>>>> 7408ccf6d038d40afe61630d162e436bd0ec5291
 
-  export default {
+export default {
     name: 'TicketsListComponent',
 
+<<<<<<< HEAD
     data() {
       return {
         date: '',
@@ -137,5 +145,99 @@
   mounted() {
     this.$store.dispatch('uploadTickets')
   }
+=======
+    components: {
+        VueScrollbar,
+    },
+
+    data() {
+        return {
+            date: '',
+            config: {
+                format: 'YYYY-MM-DD',
+                useCurrent: false,
+            },
+            fields: [
+                {
+                    key: 'title',
+                    label: 'Title',
+                    sortable: true
+                },
+                {
+                    key: 'ticketsLeft',
+                    label: 'Tickets left'
+                },
+                {
+                    key: 'ticketsAvailable',
+                    label: 'Tickets available',
+                    sortable: true
+                },
+                {
+                    key: 'status',
+                    label: 'Status'
+                },
+                {
+                    key: 'price',
+                    label: 'Price',
+                    sortable: true
+                }
+            ],
+            prices: core.showsPrices,
+            musical: [],
+            drama: [],
+            comedy: []
+        }
+    },
+
+    computed: {
+        ...mapGetters(['tickets'])
+    },
+
+    watch: {
+        date () {
+            this.updateTicketsInfo()
+        }
+    },
+
+    methods: {
+        updateTicketsInfo () {
+            this.resetTickets()
+            if (core.canTicketsBeSaledByDate(this.date)) {
+                let musical = this.tickets('musical')[this.date]
+                let comedy = this.tickets('comedy')[this.date]
+                let drama = this.tickets('drama')[this.date]
+
+                this.musical = _.map(musical, this.fillTicketInfo)
+                this.comedy = _.map(comedy, this.fillTicketInfo)
+                this.drama = _.map(drama, this.fillTicketInfo)
+            }
+
+            this.$forceUpdate()
+        },
+
+        fillTicketInfo (show) {
+            let amountOfTickets = core.getMaxTicketsAmount(this.date, show.date)
+            let soldTickets = core.getAlreadySoledTicketsAmount(this.date, show.date)
+
+            return {
+                title: show.name,
+                ticketsLeft: soldTickets,
+                ticketsAvailable: amountOfTickets - soldTickets,
+                status: 'open for sale',
+                price: this.prices[show.type.toLowerCase()] * core.getDiscount(this.date, show.date)
+            }
+        },
+
+        resetTickets () {
+            this.musical = []
+            this.comedy = []
+            this.drama = []
+        }
+    },
+
+    mounted() {
+        this.$store.dispatch('uploadTickets')
+    }
+>>>>>>> 7408ccf6d038d40afe61630d162e436bd0ec5291
 }
 </script>

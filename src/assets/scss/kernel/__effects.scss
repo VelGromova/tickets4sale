@@ -8,3 +8,16 @@ $transform-transition-function: $default-transition-duration $default-transition
 $border-color-transition-function: $default-transition-duration $default-transition-function border-color;
 $opacity-transition-function: $default-transition-duration $default-transition-function opacity;
 $height-transition-function: $default-transition-duration $default-transition-function height;
+
+.ef-transition-opacity {
+  @include transition($opacity-transition-function);
+}
+
+.ef-opacity {
+  &-enter, &-leave-to {
+    /* NOTE: uses for transition effects(https://vuejs.org/v2/guide/transitions.html)
+     * &-leave-active below version 2.1.8
+     */
+    opacity: 0;
+  }
+}

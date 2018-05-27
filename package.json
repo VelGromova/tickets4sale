@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "vue-cli-service test"
+    "test": "vue-cli-service test",
+    "e2e": "$(npm bin)/cypress run",
+    "e2eInteractive": "$(npm bin)/cypress open"
   },
   "nyc": {
     "include": [
@@ -37,6 +39,7 @@
     "chai": "^4.1.2",
     "compass-mixins": "^0.12.10",
     "csv-loader": "^2.1.1",
+    "cypress": "^2.1.0",
     "mocha": "^5.1.0",
     "mocha-webpack": "^1.1.0",
     "node-sass": "~4.8.3",
